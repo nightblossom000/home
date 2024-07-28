@@ -1,24 +1,35 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { createHashRouter, RouterProvider } from 'react-router-dom';
 import App from "./App.tsx";
 import Search from "./Search.tsx";
 import { ThemeProvider } from "@/components/theme-provider.tsx";
+import { Provider } from 'react-redux';
+import store from './redux/store';
+
 import "./index.css";
+
+const router = createHashRouter([
+  {
+    path: '/',
+    element: <App />,
+  },
+  {
+    path: '/search',
+    element: <Search />,
+  },
+
+  
+]);
+
+
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
+  <Provider store={store}>
     <ThemeProvider>
-      <BrowserRouter>
-      <Routes>
-        <Route path="/" element={""}>
-          <Route index element={<App />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="contact" element={""} />
-          <Route path="*" element={<App />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+      <RouterProvider router={router} />
     </ThemeProvider>
+    </Provider>
   </React.StrictMode>
 );
