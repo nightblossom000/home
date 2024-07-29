@@ -53,6 +53,10 @@ const navigate = useNavigate();
 
 const search = (e) => {
   e.preventDefault();
+  window.scroll({
+      top: 0,
+      left: 0,
+    });
   return navigate("/search?q=" + e.target.q.value);
 } 
 
